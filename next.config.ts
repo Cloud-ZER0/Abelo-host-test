@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+	images: {
+		domains: ["cdn.dummyjson.com", "dummyjson.com"],
+	},
+
+	sassOptions: {
+		includePaths: ["./src/styles"],
+	},
+
+	output: "standalone",
 };
 
 export default nextConfig;
