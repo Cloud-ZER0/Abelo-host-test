@@ -1,0 +1,17 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.labelText {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.5;
+	text-align: left;
+	letter-spacing: normal;
+}
+
+.error {
+	color: #cc1616;
+}

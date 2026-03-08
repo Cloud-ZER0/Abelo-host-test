@@ -1,0 +1,11 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	width: 100%;
+	max-width: 600px;
+	margin: 200px auto;
+	padding: 20px;
+	border: 1px solid black;
+}
