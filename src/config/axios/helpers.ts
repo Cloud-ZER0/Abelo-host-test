@@ -1,7 +1,11 @@
 import { type AxiosError } from ".";
 
+export const isAxiosError = (error: unknown): boolean => {
+	return typeof error === "object" && error != null && "isAxiosError" in error;
+};
+
 export const getErrorMsg = (error: unknown): string => {
-	if (typeof error === "object" && error != null && "isAxiosError" in error) {
+	if (isAxiosError(error)) {
 		const axiosError = error as AxiosError;
 		if (axiosError.response.status === 401) {
 			return "Incorrect email or password";

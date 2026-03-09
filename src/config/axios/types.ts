@@ -49,6 +49,11 @@ export interface Dimensions {
 	depth: number;
 }
 
+export interface RefreshTokenResponse {
+	accessToken: string;
+	refreshToken: string;
+}
+
 export interface Review {
 	rating: number;
 	comment: string;

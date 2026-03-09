@@ -15,21 +15,13 @@ export interface AuthActionResponse {
 }
 
 export const authAction = async (): Promise<AuthActionResponse> => {
+	const cookiesStore = await cookies();
+	const token = cookiesStore.get(COOKIE_ACCSESS_TOKEN)?.value;
+
 	try {
-		const cookiesStore = await cookies();
-
-		const token = cookiesStore.get(COOKIE_ACCSESS_TOKEN);
-
-		if (token == undefined) {
-			return {
-				success: false,
-				message: "No accessToken was found",
-			};
-		}
-
 		const { data } = await axiosClient.get<UserResponose>("/auth/me", {
 			headers: {
-				Authorization: `Bearer ${token.value}`,
+				Authorization: `Bearer ${token}`,
 			},
 		});
 
@@ -42,11 +34,9 @@ export const authAction = async (): Promise<AuthActionResponse> => {
 			},
 		};
 	} catch (error) {
-		const message = getErrorMsg(error);
-
 		return {
 			success: false,
-			message,
+			message: getErrorMsg(error),
 		};
 	}
 };
