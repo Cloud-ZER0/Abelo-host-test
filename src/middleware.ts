@@ -12,6 +12,12 @@ export async function middleware(request: NextRequest) {
 	const accessToken = request.cookies.get(COOKIE_ACCSESS_TOKEN)?.value;
 	const refreshToken = request.cookies.get(COOKIE_REFRESH_TOKEN)?.value;
 
+	const { pathname } = request.nextUrl;
+
+	if (accessToken != undefined && pathname === "/login") {
+		return NextResponse.redirect(new URL("/", request.url));
+	}
+
 	if (accessToken == undefined && refreshToken == undefined) {
 		return NextResponse.next();
 	}

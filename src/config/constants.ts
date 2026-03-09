@@ -21,4 +21,4 @@ export const BASE_PRODUCTS_LIMIT = 12;
 export const COOKIE_ACCSESS_TOKEN = "accessToken";
 export const COOKIE_REFRESH_TOKEN = "refreshToken";
 
-export const BASE_ACCESS_TOKEN_EXPIRES = 1;
+export const BASE_ACCESS_TOKEN_EXPIRES = 30;
