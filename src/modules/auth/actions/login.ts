@@ -12,8 +12,18 @@ export interface LoginActionOptions {
 	password: string;
 }
 
+interface ActionSuccess {
+	success: true;
+	user: User;
+}
+
+interface ActionError {
+	success: false;
+	message: string;
+}
+
 export interface LoginActionResponse {
-	user?: User;
+	data: ActionSuccess | ActionError;
 }
 
 export const loginAction = async ({
@@ -33,13 +43,21 @@ export const loginAction = async ({
 		});
 
 		return {
-			user: {
-				email: data.email,
-				firstName: data.firstName,
-				lastName: data.lastName,
+			data: {
+				success: true,
+				user: {
+					email: data.email,
+					firstName: data.firstName,
+					lastName: data.lastName,
+				},
 			},
 		};
 	} catch (error) {
-		throw new Error(getErrorMsg(error));
+		return {
+			data: {
+				success: false,
+				message: getErrorMsg(error),
+			},
+		};
 	}
 };

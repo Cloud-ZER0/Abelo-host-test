@@ -1,5 +1,6 @@
+import { type Product } from "@/config/axios";
+
 import { type ProductCardProps } from "../components/product-card";
-import { type Product } from "../queries/types";
 
 export const mapProducts = (products: Product[]): ProductCardProps[] => {
 	return products.map((product) => ({

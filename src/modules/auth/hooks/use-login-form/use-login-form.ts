@@ -21,7 +21,7 @@ export const useLoginForm = (): UseLoginFormReturnValue => {
 	});
 
 	const onSubmit = form.handleSubmit(async (credentials) => {
-		const { data, serverError } = await login(credentials);
+		const { data: result, serverError } = await login(credentials);
 
 		if (serverError != undefined) {
 			const type = "server_error";
@@ -30,7 +30,8 @@ export const useLoginForm = (): UseLoginFormReturnValue => {
 			return;
 		}
 
-		if (data?.user == undefined) {
+		// eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+		if (result == undefined || !result.data.success) {
 			const type = "unknown_error";
 			form.formState.setError({ name: "username", type });
 			form.formState.setError({
@@ -41,7 +42,7 @@ export const useLoginForm = (): UseLoginFormReturnValue => {
 			return;
 		}
 		form.formState.clear();
-		setUser(data.user);
+		setUser(result.data.user);
 		router.push("/");
 	});
 

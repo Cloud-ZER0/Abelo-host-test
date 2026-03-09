@@ -19,7 +19,9 @@ export const FooterControls = ({ className }: FooterControlsProps) => {
 	return (
 		<div className={clsx(styles.root, className)}>
 			<span className={styles.year}>{year}</span>
-			{user != undefined && <span className={styles.email}>{user.email}</span>}
+			{user != undefined && (
+				<span className={styles.email}>Logged as {user.email}</span>
+			)}
 		</div>
 	);
 };
