@@ -1,6 +1,6 @@
-export interface UseActionOptions<Args, ReturnValue> {
-	action: (arg: Args) => Promise<ReturnValue>;
-}
+export type UseActionOptions<Args, ReturnValue> = (
+	arg: Args,
+) => Promise<ReturnValue>;
 
 export interface ActionData<ReturnValue> {
 	data?: ReturnValue;

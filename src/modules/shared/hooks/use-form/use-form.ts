@@ -2,13 +2,13 @@
 
 import { useCallback, useState } from "react";
 
+import { createTypedRecord } from "./helpers";
 import {
 	type FormError,
 	type FormFieldValues,
 	type UseFormOptions,
 	type UseFormResult,
 } from "./types";
-import { createTypedRecord } from "./use-form.helpers";
 
 export const useForm = <Form extends object>({
 	resolver,

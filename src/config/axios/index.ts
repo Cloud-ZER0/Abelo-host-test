@@ -1,1 +1,3 @@
-export * as config from "./config";
+export * from "./config";
+export * from "./helpers";
+export * from "./types";

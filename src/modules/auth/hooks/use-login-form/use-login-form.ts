@@ -1,13 +1,17 @@
+import { useRouter } from "next/navigation";
+
 import { useAction } from "@/modules/shared/hooks/use-action";
 import { useForm } from "@/modules/shared/hooks/use-form";
+import { useUser } from "@/modules/user/context/hooks/use-user";
 
-import { loginAction } from "../../actions/login-action";
-import { loginFormResolver } from "../../utils";
+import { loginAction } from "../../actions/login";
+import { loginFormResolver } from "../../resolvers/login-form-resolver";
 import { type LoginFormOptions, type UseLoginFormReturnValue } from "./types";
 
 export const useLoginForm = (): UseLoginFormReturnValue => {
-	const { isPending, executeAsync: login } = useAction({ action: loginAction });
-
+	const { isPending, executeAsync: login } = useAction(loginAction);
+	const { setUser } = useUser();
+	const router = useRouter();
 	const form = useForm<LoginFormOptions>({
 		initialValue: {
 			username: "",
@@ -16,12 +20,8 @@ export const useLoginForm = (): UseLoginFormReturnValue => {
 		resolver: loginFormResolver,
 	});
 
-	console.log("@@", form.formState.errors);
-
 	const onSubmit = form.handleSubmit(async (credentials) => {
 		const { data, serverError } = await login(credentials);
-
-		form.formState.clear();
 
 		if (serverError != undefined) {
 			const type = "server_error";
@@ -36,10 +36,13 @@ export const useLoginForm = (): UseLoginFormReturnValue => {
 			form.formState.setError({
 				name: "password",
 				type,
-				message: "an error occured",
+				message: "An error occured",
 			});
 			return;
 		}
+		form.formState.clear();
+		setUser(data.user);
+		router.push("/");
 	});
 
 	return {

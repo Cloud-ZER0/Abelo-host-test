@@ -8,30 +8,31 @@ import {
 	type UseActionResult,
 } from "./types";
 
-export const useAction = <Args, ReturnValue>({
-	action,
-}: UseActionOptions<Args, ReturnValue>): UseActionResult<Args, ReturnValue> => {
+export const useAction = <Args, ReturnValue>(
+	action: UseActionOptions<Args, ReturnValue>,
+): UseActionResult<Args, ReturnValue> => {
 	const [isPending, setIsPending] = useState(false);
-	const [actionData, setActiondata] = useState<ActionData<ReturnValue>>({
-		data: undefined,
-		serverError: undefined,
-	});
 
 	const executeAsync = useCallback(
 		async (args: Args): Promise<ActionData<ReturnValue>> => {
+			const data: ActionData<ReturnValue> = {
+				data: undefined,
+				serverError: undefined,
+			};
 			setIsPending(true);
 			try {
-				const data = await action(args);
-				setActiondata({ data });
-			} catch {
-				setActiondata({ serverError: "An server error occured" });
+				const response = await action(args);
+				data.data = response;
+			} catch (error) {
+				data.serverError =
+					error instanceof Error ? error.message : "An error occured";
 			} finally {
 				setIsPending(false);
 			}
-			return actionData;
+			return data;
 		},
 
-		[action, actionData],
+		[action],
 	);
 
 	return {
