@@ -1,4 +1,4 @@
-export interface UserResponose {
+export interface UserResponse {
 	id: number;
 	username: string;
 	email: string;
@@ -41,7 +41,7 @@ export interface ProductCategory {
 	href: string;
 }
 
-export type CategoriesRespnonse = ProductCategory[];
+export type CategoriesResponse = ProductCategory[];
 
 export interface Dimensions {
 	width: number;
@@ -74,6 +74,11 @@ export interface ProductsResponse {
 	total: number;
 	skip: number;
 	limit: number;
+}
+
+export interface ActionError {
+	success: false;
+	message: string;
 }
 
 export interface AxiosError {

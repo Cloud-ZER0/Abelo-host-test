@@ -3,7 +3,7 @@
 import {
 	axiosClient,
 	getErrorMsg,
-	type CategoriesRespnonse,
+	type CategoriesResponse,
 	type ProductCategory,
 } from "@/config/axios";
 
@@ -15,7 +15,7 @@ export interface GetCategoriesQuery {
 
 export const getCategoriesQuery = async (): Promise<GetCategoriesQuery> => {
 	try {
-		const { data } = await axiosClient.get<CategoriesRespnonse>(
+		const { data } = await axiosClient.get<CategoriesResponse>(
 			"/products/categories",
 		);
 

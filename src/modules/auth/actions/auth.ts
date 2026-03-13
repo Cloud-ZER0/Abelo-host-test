@@ -2,10 +2,10 @@
 
 import { cookies } from "next/headers";
 
-import { type UserResponose } from "@/config/axios";
+import { type UserResponse } from "@/config/axios";
 import { axiosClient } from "@/config/axios/config";
 import { getErrorMsg } from "@/config/axios/helpers";
-import { COOKIE_ACCSESS_TOKEN } from "@/config/constants";
+import { COOKIE_ACCESS_TOKEN } from "@/config/constants";
 import { type User } from "@/modules/user/store/user-store";
 
 export interface AuthActionResponse {
@@ -16,10 +16,10 @@ export interface AuthActionResponse {
 
 export const authAction = async (): Promise<AuthActionResponse> => {
 	const cookiesStore = await cookies();
-	const token = cookiesStore.get(COOKIE_ACCSESS_TOKEN)?.value;
+	const token = cookiesStore.get(COOKIE_ACCESS_TOKEN)?.value;
 
 	try {
-		const { data } = await axiosClient.get<UserResponose>("/auth/me", {
+		const { data } = await axiosClient.get<UserResponse>("/auth/me", {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},

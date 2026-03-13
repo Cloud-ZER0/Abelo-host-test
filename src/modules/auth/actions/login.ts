@@ -1,6 +1,6 @@
 "use server";
 
-import { axiosClient, type UserResponose } from "@/config/axios";
+import { axiosClient, type ActionError, type UserResponse } from "@/config/axios";
 import { getErrorMsg } from "@/config/axios/helpers";
 import { BASE_ACCESS_TOKEN_EXPIRES } from "@/config/constants";
 import { type User } from "@/modules/user/store/user-store";
@@ -17,11 +17,6 @@ interface ActionSuccess {
 	user: User;
 }
 
-interface ActionError {
-	success: false;
-	message: string;
-}
-
 export interface LoginActionResponse {
 	data: ActionSuccess | ActionError;
 }
@@ -31,7 +26,7 @@ export const loginAction = async ({
 	password,
 }: LoginActionOptions): Promise<LoginActionResponse> => {
 	try {
-		const { data } = await axiosClient.post<UserResponose>("/auth/login", {
+		const { data } = await axiosClient.post<UserResponse>("/auth/login", {
 			username,
 			password,
 			expiresInMins: BASE_ACCESS_TOKEN_EXPIRES,

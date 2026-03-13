@@ -4,12 +4,12 @@ import type { NextRequest } from "next/server";
 import { baseURL, type RefreshTokenResponse } from "./config/axios";
 import {
 	BASE_ACCESS_TOKEN_EXPIRES,
-	COOKIE_ACCSESS_TOKEN,
+	COOKIE_ACCESS_TOKEN,
 	COOKIE_REFRESH_TOKEN,
 } from "./config/constants";
 
 export async function middleware(request: NextRequest) {
-	const accessToken = request.cookies.get(COOKIE_ACCSESS_TOKEN)?.value;
+	const accessToken = request.cookies.get(COOKIE_ACCESS_TOKEN)?.value;
 	const refreshToken = request.cookies.get(COOKIE_REFRESH_TOKEN)?.value;
 
 	const { pathname } = request.nextUrl;
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
 
 			const response = NextResponse.next();
 
-			response.cookies.set(COOKIE_ACCSESS_TOKEN, data.accessToken, {
+			response.cookies.set(COOKIE_ACCESS_TOKEN, data.accessToken, {
 				httpOnly: true,
 				maxAge: 60 * BASE_ACCESS_TOKEN_EXPIRES,
 				path: "/",
@@ -44,12 +44,12 @@ export async function middleware(request: NextRequest) {
 				path: "/",
 			});
 
-			request.cookies.set(COOKIE_ACCSESS_TOKEN, data.accessToken);
+			request.cookies.set(COOKIE_ACCESS_TOKEN, data.accessToken);
 
 			return response;
 		} catch {
 			const response = NextResponse.next();
-			response.cookies.delete(COOKIE_ACCSESS_TOKEN);
+			response.cookies.delete(COOKIE_ACCESS_TOKEN);
 			response.cookies.delete(COOKIE_REFRESH_TOKEN);
 			return response;
 		}

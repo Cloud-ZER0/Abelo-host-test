@@ -19,12 +19,12 @@ export const getErrorMsg = (error: unknown): string => {
 			return "The server timed out waiting for a response.";
 		}
 
-		return axiosError.response.data?.message ?? "An error occured";
+		return axiosError.response.data?.message ?? "An error occurred";
 	}
 
 	if (error instanceof Error) {
 		return error.message;
 	}
 
-	return "An error occured";
+	return "An error occurred";
 };

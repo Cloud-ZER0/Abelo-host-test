@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 import {
 	BASE_ACCESS_TOKEN_EXPIRES,
-	COOKIE_ACCSESS_TOKEN,
+	COOKIE_ACCESS_TOKEN,
 	COOKIE_REFRESH_TOKEN,
 } from "@/config/constants";
 
@@ -18,7 +18,7 @@ export const setUserCookies = async ({
 	refreshToken,
 }: SetUserCookiesOptions) => {
 	const cookiesStore = await cookies();
-	cookiesStore.set(COOKIE_ACCSESS_TOKEN, accessToken, {
+	cookiesStore.set(COOKIE_ACCESS_TOKEN, accessToken, {
 		maxAge: 60 * BASE_ACCESS_TOKEN_EXPIRES,
 		httpOnly: true,
 		path: "/",
